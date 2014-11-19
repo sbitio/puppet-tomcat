@@ -9,7 +9,7 @@ class tomcat (
     '-Xmx128m',
     '-XX:+UseConcMarkSweepGC',
   ],
-  $java_home           = undef,
+  $java_home           = '',
   $tomcat_admin        = false,
   $native_libs         = false,
   $package             = $::tomcat::params::package,
