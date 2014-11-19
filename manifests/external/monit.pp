@@ -19,8 +19,8 @@ class tomcat::external::monit (
     }
 
     monit::check::service { $::tomcat::service_name :
-      pidfile => $::tomcat::pidfile,
-      binary  => $::tomcat::bin,
+      pidfile => $::tomcat::pid_file,
+      binary  => $bin,
       tests   => [ $connection_test ],
       require   => Class['tomcat::service'],
     }
