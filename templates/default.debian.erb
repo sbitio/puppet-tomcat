@@ -13,7 +13,7 @@ TOMCAT6_GROUP=<%= scope.lookupvar('::tomcat::group') %>
 # JDK version 1.5. If JAVA_HOME is not set, some common directories for
 # OpenJDK, the Sun JDK, and various J2SE 1.5 versions are tried.
 #JAVA_HOME=/usr/lib/jvm/openjdk-6-jdk
-<% if scope.lookupvar('::tomcat::java_home') -%>JAVA_HOME="<%= scope.lookupvar('::tomcat::java_home') %>"<% end -%>
+<% if scope.lookupvar('::tomcat::java_home') != '' -%>JAVA_HOME="<%= scope.lookupvar('::tomcat::java_home') %>"<% end -%>
 
 # You may pass JVM startup parameters to Java here. If unset, the default
 # options will be: -Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC
