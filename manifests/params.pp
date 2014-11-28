@@ -2,7 +2,6 @@ class tomcat::params (
 ) {
 
   # TODO: add support for tomcat versions
-  $package         = 'tomcat6'
   $service_name    = 'tomcat6'
   $pid_file        = '/var/run/tomcat6.pid'
   $context_home    = '/etc/tomcat6/Catalina/localhost'
