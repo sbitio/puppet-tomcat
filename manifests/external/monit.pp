@@ -16,6 +16,7 @@ class tomcat::external::monit (
       type     => connection,
       protocol => http,
       port     => $::tomcat::http_port,
+      action   => 'restart',
     }
 
     monit::check::service { $::tomcat::service_name :
