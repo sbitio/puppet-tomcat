@@ -10,26 +10,31 @@ class tomcat::params (
 
   case $::operatingsystem {
     ubuntu, debian: {
+      $package           = 'tomcat6'
       $default_java_home = '/usr/lib/jvm/default-java'
-      $native_packages = [
+      $native_packages   = [
         'libapr1',
         'libtcnative-1',
       ]
-      $admin_package   = 'tomcat6-admin'
-      $config_file     = '/etc/default/tomcat6'
-      $config_template = 'tomcat/default.debian.erb'
+      $admin_package     = 'tomcat6-admin'
+      $config_file       = '/etc/default/tomcat6'
+      $config_template   = 'tomcat/default.debian.erb'
       #Needed?      $data_dir        = '/var/lib/tomcat6/data'
-      $user            = 'tomcat6'
-      $group           = 'tomcat6'
+      $user              = 'tomcat6'
+      $group             = 'tomcat6'
     }
     redhat, centos: {
+      $package           = [
+        'tomcat6',
+        'tomcat6-webapps',
+      ]
       $default_java_home = '/usr/lib/jvm/jre/'
-      $native_packages = 'tomcat-native'
-      $admin_package   = 'tomcat6-admin-webapps'
-      $config_file     = '/etc/sysconfig/tomcat6'
-      $config_template = 'tomcat/default.redhat.erb'
-      $user            = 'tomcat'
-      $group           = 'tomcat'
+      $native_packages   = 'tomcat-native'
+      $admin_package     = 'tomcat6-admin-webapps'
+      $config_file       = '/etc/sysconfig/tomcat6'
+      $config_template   = 'tomcat/default.redhat.erb'
+      $user              = 'tomcat'
+      $group             = 'tomcat'
     }
     default: {
       fail("Unsupported platform: ${::operatingsystem}")
