@@ -1,5 +1,6 @@
 # If several version are available, choose always the greater one.
 class tomcat::version {
+
   case $::osfamily {
     'Debian': {
       if $::operatingsystem == 'Debian' {

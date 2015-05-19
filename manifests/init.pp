@@ -2,7 +2,6 @@ class tomcat (
   $ensure              = 'present',
   $autoupgrade         = false,
   $config_file_replace = true,
-  #TODO# support more ports
   $http_port           = 8080,
   $java_opts           = [
     '-Djava.awt.headless=true',
@@ -24,13 +23,13 @@ class tomcat (
   $config_template     = $::tomcat::params::config_template,
   $user                = $::tomcat::params::user,
   $group               = $::tomcat::params::group,
-) inherits tomcat::params {
+) inherits ::tomcat::params {
 
-     class{'tomcat::install': }
-  -> class{'tomcat::config': }
-  ~> class{'tomcat::service': }
-  -> class{'tomcat::external::monit': }
-  -> Class['tomcat']
+  class{'tomcat::install': } ->
+  class{'tomcat::config': } ~>
+  class{'tomcat::service': } ->
+  class{'tomcat::external::monit': } ->
+  Class['tomcat']
 
 }
 

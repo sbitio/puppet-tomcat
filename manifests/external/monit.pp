@@ -13,8 +13,8 @@ class tomcat::external::monit (
     }
 
     $connection_test = {
-      type     => connection,
-      protocol => http,
+      type     => 'connection',
+      protocol => 'http',
       port     => $::tomcat::http_port,
       action   => 'restart',
     }
@@ -23,7 +23,7 @@ class tomcat::external::monit (
       pidfile => $::tomcat::pid_file,
       binary  => $bin,
       tests   => [ $connection_test ],
-      require   => Class['tomcat::service'],
+      require => Class['::tomcat::service'],
     }
   }
 }

@@ -3,11 +3,14 @@ define tomcat::context (
   $ensure = $::tomcat::ensure,
 ) {
 
+  if (!defined(Class['tomcat'])) {
+    fail('You must include class tomcat before creating contexts')
+  }
+
   file { "${::tomcat::context_home}/${name}.xml":
     ensure  => $ensure,
     content => $content,
-    require => Class['::tomcat::config'],
-    notify  => Class['::tomcat::service'],
+    notify  => Class['tomcat::service'],
   }
 
 }
