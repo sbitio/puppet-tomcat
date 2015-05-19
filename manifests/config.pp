@@ -14,7 +14,7 @@ class tomcat::config () {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("tomcat/${::tomcat::params::tomcat_version}/server.xml"),
+    content => template("tomcat/${::tomcat::params::tomcat_version}/server.xml.erb"),
     require => Class['tomcat::install'],
   }
 
