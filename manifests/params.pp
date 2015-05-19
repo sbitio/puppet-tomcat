@@ -1,43 +1,47 @@
 class tomcat::params (
-) {
+  $version = $::tomcat::version::default,
+) inherits ::tomcat::version {
 
-  # TODO: add support for tomcat versions
-  $service_name    = 'tomcat6'
-  $pid_file        = '/var/run/tomcat6.pid'
-  $context_home    = '/etc/tomcat6/Catalina/localhost'
-  $server_xml_file = '/etc/tomcat6/server.xml'
+  $tomcat_version       = "tomcat${version}"
+  $service_name         = $tomcat_version
+  $pid_file             = "/var/run/${tomcat_version}.pid"
+  $context_home         = "/etc/${tomcat_version}/Catalina/localhost"
+  $server_xml_file      = "/etc/${tomcat_version}/server.xml"
+  $config_file_template = "tomcat/${::osfamily}/${::tomcat::params::tomcat_version}/default.erb"
 
-  case $::operatingsystem {
-    ubuntu, debian: {
-      $package           = 'tomcat6'
+  case $::osfamily {
+    'Debian': {
+      $package           = $tomcat_version
       $default_java_home = '/usr/lib/jvm/default-java'
       $native_packages   = [
         'libapr1',
         'libtcnative-1',
       ]
-      $admin_package     = 'tomcat6-admin'
-      $config_file       = '/etc/default/tomcat6'
-      $config_template   = 'tomcat/default.debian.erb'
-      #Needed?      $data_dir        = '/var/lib/tomcat6/data'
-      $user              = 'tomcat6'
-      $group             = 'tomcat6'
+      $admin_package     = "${tomcat_version}-admin"
+      $config_file       = "/etc/default/${tomcat_version}"
+      $user              = $tomcat_version
+      $group             = $tomcat_version
     }
-    redhat, centos: {
+    'RedHat': {
+      $redhat_base_name = $::lsbmajdistrelease ? {
+        '6'     => 'tomcat6',
+        default => 'tomcat',
+      }
       $package           = [
-        'tomcat6',
-        'tomcat6-webapps',
+        "${redhat_base_name}",
+        "${redhat_base_name}-webapps",
       ]
       $default_java_home = '/usr/lib/jvm/jre/'
       $native_packages   = 'tomcat-native'
-      $admin_package     = 'tomcat6-admin-webapps'
-      $config_file       = '/etc/sysconfig/tomcat6'
-      $config_template   = 'tomcat/default.redhat.erb'
+      $admin_package     = "${redhat_base_name}-admin-webapps"
+      $config_file       = "/etc/sysconfig/${redhat_base_name}"
       $user              = 'tomcat'
       $group             = 'tomcat'
     }
     default: {
-      fail("Unsupported platform: ${::operatingsystem}")
+      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support osfamily Debian and RedHat")
     }
   }
 
 }
+
