@@ -19,9 +19,9 @@ class tomcat::version {
         # Ubuntu version && tomcat packages:
         # - precise(12) => tomcat6
         # - trusty(14)  => tomcat6, tomcat7
-        $default = $::lsbmajdistrelease ? {
-          '12' => 6,
-          '14' => 7,
+        $default = $::lsbdistcodename ? {
+          'precise' => 6,
+          'trusty'  => 7,
         }
       }
       else {
