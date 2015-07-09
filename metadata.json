@@ -1,6 +1,6 @@
 {
   "name": "sbitio-tomcat",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "SB IT Media, S.L.",
   "summary": "Performs installation and configuration of Tomcat, based on packages provided by the OS.",
   "license": "MIT",
