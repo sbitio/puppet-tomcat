@@ -5,6 +5,13 @@ class tomcat::external::monit (
 
   if $enabled and defined('::monit') {
 
+    $init_system = $::operatingsystem ? {
+      'Ubuntu' => $lsbmajdistrelease ? {
+        /(12\.|14\.)/ => 'sysv',
+        default       => undef,
+      },
+      default  => undef,
+    }
     $bin = $::tomcat::java_home ? {
       undef   => "${::tomcat::default_java_home}/bin/java",
       default => "${::tomcat::java_home}/bin/java",
@@ -18,10 +25,11 @@ class tomcat::external::monit (
     }
 
     monit::check::service { $::tomcat::service_name :
-      pidfile => $::tomcat::pid_file,
-      binary  => $bin,
-      tests   => [ $connection_test ],
-      require => Class['::tomcat::service'],
+      init_system => $init_system,
+      pidfile     => $::tomcat::pid_file,
+      binary      => $bin,
+      tests       => [ $connection_test ],
+      require     => Class['::tomcat::service'],
     }
   }
 }
