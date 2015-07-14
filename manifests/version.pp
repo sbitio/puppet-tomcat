@@ -1,4 +1,8 @@
+# == Class: tomcat::version
+#
+# This class chooses a default tomcat version based on the operating system.
 # If several version are available, choose always the greater one.
+#
 class tomcat::version {
 
   case $::osfamily {

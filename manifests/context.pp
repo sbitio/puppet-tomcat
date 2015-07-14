@@ -1,3 +1,7 @@
+# == Defined type: tomcat::context
+#
+# Implement Tomcat's contexts
+#
 define tomcat::context (
   $content,
   $ensure = $::tomcat::ensure,

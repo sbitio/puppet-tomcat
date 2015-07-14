@@ -1,3 +1,7 @@
+# == Class: tomcat::service
+#
+# This class manages tomcat's service daemon.
+#
 class tomcat::service {
 
   if $caller_module_name != $module_name {
@@ -5,8 +9,8 @@ class tomcat::service {
   }
 
   service { $::tomcat::service_name:
-    name       => $::tomcat::service_name,
     ensure     => running,
+    name       => $::tomcat::service_name,
     hasstatus  => true,
     hasrestart => true,
     enable     => true,

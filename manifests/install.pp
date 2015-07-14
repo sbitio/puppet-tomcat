@@ -1,3 +1,7 @@
+# == Class: tomcat::install
+#
+# This class installs tomcat service.
+#
 class tomcat::install {
 
   if $caller_module_name != $module_name {
@@ -32,7 +36,7 @@ class tomcat::install {
   }
 
   if $::tomcat::tomcat_admin {
-     package { $::tomcat::admin_package:
+    package { $::tomcat::admin_package:
       ensure  => $package_ensure,
       require => Package[$::tomcat::package],
     }

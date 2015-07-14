@@ -1,3 +1,7 @@
+# == Class: tomcat::config
+#
+# This class configures tomcat service.
+#
 class tomcat::config {
 
   if $caller_module_name != $module_name {
@@ -5,7 +9,7 @@ class tomcat::config {
   }
 
   file { $::tomcat::config_file:
-    ensure  => $ensure,
+    ensure  => $tomcat::ensure,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -13,7 +17,7 @@ class tomcat::config {
     content => template($tomcat::config_file_template),
   }
   file { $::tomcat::server_xml_file:
-    ensure  => $ensure,
+    ensure  => $tomcat::ensure,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',

@@ -1,3 +1,7 @@
+# == Class: tomcat
+#
+# This class is the entrance point to install and configure tomcat service.
+#
 class tomcat (
   $ensure              = 'present',
   $autoupgrade         = false,

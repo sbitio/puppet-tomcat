@@ -1,3 +1,7 @@
+# == Class: tomcat::params
+#
+# This class configures tomcat params based on the operating system.
+#
 class tomcat::params (
   $version = $::tomcat::version::default,
 ) inherits ::tomcat::version {
@@ -28,7 +32,7 @@ class tomcat::params (
         default => 'tomcat',
       }
       $package           = [
-        "${redhat_base_name}",
+        $redhat_base_name,
         "${redhat_base_name}-webapps",
       ]
       $default_java_home = '/usr/lib/jvm/jre/'
