@@ -9,7 +9,6 @@ Performs installation and configuration of Tomcat, **based on packages provided 
  * Allows to choose which version to install when the OS provides more than one.
  For instance Debian Wheezy and Jessie provide Tomcat 6,7 and 7,8 respectively.
  If not specified, latest version is used.
- * Integrates with [sbitio/monit](https://forge.puppetlabs.com/sbitio/monit).
  * Compatible with [sbitio/solr](https://github.com/sbitio/puppet-solr).
 
 
