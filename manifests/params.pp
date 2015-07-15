@@ -7,7 +7,6 @@ class tomcat::params (
 ) inherits ::tomcat::version {
 
   $tomcat_version       = "tomcat${version}"
-  $service_name         = $tomcat_version
   $pid_file             = "/var/run/${tomcat_version}.pid"
   $context_home         = "/etc/${tomcat_version}/Catalina/localhost"
   $config_file_template = "tomcat/${::osfamily}/${::tomcat::params::tomcat_version}/default.erb"
@@ -15,6 +14,7 @@ class tomcat::params (
   case $::osfamily {
     'Debian': {
       $package           = $tomcat_version
+      $service_name      = $tomcat_version
       $default_java_home = '/usr/lib/jvm/default-java'
       $native_packages   = [
         'libapr1',
@@ -35,6 +35,7 @@ class tomcat::params (
         $redhat_base_name,
         "${redhat_base_name}-webapps",
       ]
+      $service_name      = $redhat_base_name
       $default_java_home = '/usr/lib/jvm/jre/'
       $native_packages   = 'tomcat-native'
       $admin_package     = "${redhat_base_name}-admin-webapps"
