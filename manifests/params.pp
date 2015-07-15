@@ -10,7 +10,6 @@ class tomcat::params (
   $service_name         = $tomcat_version
   $pid_file             = "/var/run/${tomcat_version}.pid"
   $context_home         = "/etc/${tomcat_version}/Catalina/localhost"
-  $server_xml_file      = "/etc/${tomcat_version}/server.xml"
   $config_file_template = "tomcat/${::osfamily}/${::tomcat::params::tomcat_version}/default.erb"
 
   case $::osfamily {
@@ -23,6 +22,7 @@ class tomcat::params (
       ]
       $admin_package     = "${tomcat_version}-admin"
       $config_file       = "/etc/default/${tomcat_version}"
+      $server_xml_file   = "/etc/${tomcat_version}/server.xml"
       $user              = $tomcat_version
       $group             = $tomcat_version
     }
@@ -39,6 +39,7 @@ class tomcat::params (
       $native_packages   = 'tomcat-native'
       $admin_package     = "${redhat_base_name}-admin-webapps"
       $config_file       = "/etc/sysconfig/${redhat_base_name}"
+      $server_xml_file   = "/etc/${redhat_base_name}/server.xml"
       $user              = 'tomcat'
       $group             = 'tomcat'
     }
