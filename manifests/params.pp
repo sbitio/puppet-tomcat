@@ -6,41 +6,33 @@ class tomcat::params (
   $version = $::tomcat::version::default,
 ) inherits ::tomcat::version {
 
-  $tomcat_version       = "tomcat${version}"
-  $pid_file             = "/var/run/${tomcat_version}.pid"
-  $context_home         = "/etc/${tomcat_version}/Catalina/localhost"
-  $config_file_template = "tomcat/${::osfamily}/${::tomcat::params::tomcat_version}/default.erb"
-
   case $::osfamily {
     'Debian': {
-      $package           = $tomcat_version
-      $service_name      = $tomcat_version
+      $tomcat_name       = "tomcat${version}"
+      $package           = $tomcat_name
       $default_java_home = '/usr/lib/jvm/default-java'
       $native_packages   = [
         'libapr1',
         'libtcnative-1',
       ]
-      $admin_package     = "${tomcat_version}-admin"
-      $config_file       = "/etc/default/${tomcat_version}"
-      $server_xml_file   = "/etc/${tomcat_version}/server.xml"
-      $user              = $tomcat_version
-      $group             = $tomcat_version
+      $admin_package     = "${tomcat_name}-admin"
+      $config_file       = "/etc/default/${tomcat_name}"
+      $user              = $tomcat_name
+      $group             = $tomcat_name
     }
     'RedHat': {
-      $redhat_base_name = $::lsbmajdistrelease ? {
+      $tomcat_name = $::lsbmajdistrelease ? {
         '6'     => 'tomcat6',
         default => 'tomcat',
       }
       $package           = [
-        $redhat_base_name,
-        "${redhat_base_name}-webapps",
+        $tomcat_name,
+        "${tomcat_name}-webapps",
       ]
-      $service_name      = $redhat_base_name
       $default_java_home = '/usr/lib/jvm/jre/'
       $native_packages   = 'tomcat-native'
-      $admin_package     = "${redhat_base_name}-admin-webapps"
-      $config_file       = "/etc/sysconfig/${redhat_base_name}"
-      $server_xml_file   = "/etc/${redhat_base_name}/server.xml"
+      $admin_package     = "${tomcat_name}-admin-webapps"
+      $config_file       = "/etc/sysconfig/${tomcat_name}"
       $user              = 'tomcat'
       $group             = 'tomcat'
     }
@@ -48,6 +40,12 @@ class tomcat::params (
       fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support osfamily Debian and RedHat")
     }
   }
+
+  $pid_file             = "/var/run/${tomcat_name}.pid"
+  $context_home         = "/etc/${tomcat_name}/Catalina/localhost"
+  $config_file_template = "tomcat/${::osfamily}/${::tomcat::params::tomcat_name}/default.erb"
+  $service_name         = $tomcat_name
+  $server_xml_file      = "/etc/${tomcat_name}/server.xml"
 
 }
 
