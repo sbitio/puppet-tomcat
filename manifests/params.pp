@@ -41,7 +41,6 @@ class tomcat::params (
     }
   }
 
-  $pid_file             = "/var/run/${tomcat_name}.pid"
   $context_home         = "/etc/${tomcat_name}/Catalina/localhost"
   $config_file_template = "tomcat/${::osfamily}/tomcat${version}/default.erb"
   $service_name         = $tomcat_name

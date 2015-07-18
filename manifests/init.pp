@@ -17,7 +17,6 @@ class tomcat (
   $native_libs         = false,
   $package             = $::tomcat::params::package,
   $service_name        = $::tomcat::params::service_name,
-  $pid_file            = $::tomcat::params::pid_file,
   $context_home        = $::tomcat::params::context_home,
   $server_xml_file     = $::tomcat::params::server_xml_file,
   $default_java_home   = $::tomcat::params::default_java_home,
