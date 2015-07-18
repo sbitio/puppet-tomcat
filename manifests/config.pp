@@ -21,7 +21,7 @@ class tomcat::config {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("tomcat/${::tomcat::params::tomcat_version}/server.xml.erb"),
+    content => template("tomcat/${::tomcat::params::version}/server.xml.erb"),
   }
 
 }
