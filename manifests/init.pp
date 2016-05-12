@@ -6,6 +6,7 @@ class tomcat (
   $ensure              = 'present',
   $autoupgrade         = false,
   $config_file_replace = true,
+  $server_port         = 8005,
   $http_port           = 8080,
   $java_opts           = [
     '-Djava.awt.headless=true',
